@@ -76,18 +76,6 @@ clearHistoryDir() {
     print "clear ${upload_dir}"
     find ${upload_dir}/* -type f -mtime +${retain} -exec rm {} \;
     print "clear ok!"
-#    files=$(ls -t ${upload_dir})
-#    count=0
-#
-#    for filename in $files
-#    do
-#        if [ ${count} -lt ${retain} ]; then
-#            let count++
-#        else
-#            print "remove ${filename}"
-#            rm -rf ${filename}
-#        fi
-#    done
 }
 
 fileWriter() {
