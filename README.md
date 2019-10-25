@@ -1,7 +1,7 @@
 # mysql-backupshell-for-xtrabackup
 + -Usage:
 +   [-a backup:backup mysql recover:recover mysql clear:clear history dir] 
-+   [-s oss:AliyunOss`default` local:Storage to local] 
++   [-s oss:AliyunOss(default) local:Storage to local] 
 +   [-p Mysql password]
 +   [-u Mysql user]
 +   [-r Retained number of backup package ]

@@ -1,5 +1,7 @@
 #!/bin/bash
 today=`date "+%Y-%m-%d-%H:%M:%S"`
+#include config file
+source ./backup.config.sh
 
 print() {
     echo -e "\033[33mINFO:${1}\033[0m"
@@ -37,22 +39,10 @@ init() {
 }
 
 
-retain=3
-action=""
 
-#Default storage aliyun oss
-storage="oss"
-backup_data_prefix="mysql-backup"
 file_name="${backup_data_prefix}-${today}.tar"
 
-#mysql config
-user=""
-password=""
-mysql_data_dir="/var/lib/mysql"
-selected_package=""
-
 #init
-base_dir="/home/root"
 init ${base_dir}
 
 while getopts 'h:a:s:p:u:r:b:r:g:d:m:' OPT; do
@@ -73,7 +63,6 @@ done
 
 #checking require params
 if [[ ${user} == "" ]]; then
-    print ${user}
     print "missing param user!"
     usage
 fi
@@ -129,13 +118,9 @@ backupQiniu() {
 	fi
 
 	touch ${upload_config}
-	echo "{
-	    \"src_dir\" : \"${base_dir}/backup-history\",
-	    \"ignore_dir\" : true,
-	    \"bucket\" : \"static\"
-	}" > ${upload_config}
+	echo ${qiniu_config} > ${upload_config}
 	rm -rf .qshell
-	qshell account 6jFPQj-oqq-r3k3Mjbr6helWfKEFvGd219J8Icuj ZP03RwGrWBcLvyrA3ZzrD1QpllPxkaS61OfoTRwv default
+	qshell account ${qiniu_access_key} ${qiniu_secret_key} default
 	qshell qupload upload.conf
 	print "moving ${output_file} to ${upload_dir}.";
 	mv ${output_file} ${upload_dir}
@@ -146,19 +131,26 @@ backupQiniu() {
 backupAliyun() {
     print "start upload aliyun oss "
     oss_tool="./ossutil64"
-    oss_config="/root/.ossutilconfig"
-
     if [ ! -f ${oss_tool} ]; then
         print "ERROR:${oss_tool} not exists,upload failed."
         exit -1
     fi
 
-	if [ ! -f ${oss_config} ]; then
-        print "ERROR:${oss_config} not exists,upload failed."
-        exit -1
+    if [[ ${aliyun_oss_access_key_id} == "" || ${aliyun_oss_access_key_secret} == "" ]]; then
+        oss_config="/root/.ossutilconfig"
+        if [ ! -f ${oss_config} ]; then
+            print "ERROR:${oss_config} not exists,upload failed."
+            exit -1
+        fi
+        print "use ${oss_config}"
+        cmd "${oss_tool} cp ${upload_dir}/${file_name} ${aliyun_oss_upload_path}"
+    else
+        cmd "${oss_tool} cp ${upload_dir}/${file_name} ${aliyun_oss_upload_path} -i ${aliyun_oss_access_key_id} -k ${aliyun_oss_access_key_secret}"
     fi
 
-	cmd "${oss_tool} cp ${upload_dir}/${file_name} oss://vedata/mysql-backup/"
+
+
+
 }
 
 backupMysql() {
