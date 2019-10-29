@@ -72,9 +72,9 @@ if [[ ${password} == ""  ]]; then
 fi
 
 clearHistoryDir() {
-   #count num of retained backup
+    #count num of retained backup
     print "clear ${upload_dir}"
-    find ${upload_dir}/* -type f -mtime +${retain} -exec rm {} \;
+    find ${upload_dir}/* -type f -mtime +${retain} -exec rm -f {} \;
     print "clear ok!"
 }
 

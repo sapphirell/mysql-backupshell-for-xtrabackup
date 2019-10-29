@@ -3,12 +3,12 @@ today=`date "+%Y-%m-%d-%H:%M:%S"`
 usage() {
     print "input $1"
     print "Usage:"
-    print "  install_xtrabackup.sh "
+    print "   install_xtrabackup.sh "
     print "   [-a install:install Xtrabackup] "
     print "   [-v 24:install percona-xtrabackup-24 (for mysql 5.7)] "
-    print "Description:"
-    print "     Ruing this shell will install xtrabackup to your server."
-    print "     Require ubuntu system."
+    print "   Description:"
+    print "   Ruing this shell will install xtrabackup to your server."
+    print "   Require ubuntu system."
     exit -1
 }
 
