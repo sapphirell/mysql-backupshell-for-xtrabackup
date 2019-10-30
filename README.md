@@ -13,4 +13,4 @@
 # example
 - For example if you want to backup to local disk, you can run:
 
-    ` bash main.sh -abackup -b/var/www -uroot -ppassword -slocal  `
+    ` bash mysql_backup.sh -abackup -b/var/www -uroot -ppassword -slocal  `
