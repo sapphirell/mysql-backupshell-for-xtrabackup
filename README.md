@@ -11,6 +11,9 @@
 +   [-d Databackup fileName prefix]
 
 # example
+- install 
+
+    ` bash install_xtrabackup.sh `
 - For example if you want to backup to local disk, you can run:
 
     ` bash mysql_backup.sh -abackup -b/var/www -uroot -ppassword -slocal  `
