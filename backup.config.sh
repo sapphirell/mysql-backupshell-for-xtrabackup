@@ -51,9 +51,9 @@ base_dir="/home/root"
 #aliyun
 #       if aliyun_oss_access_key_id or aliyun_oss_access_key_secret is empty,
 #       shell will find default config in /root/.ossutilconfig
-aliyun_oss_access_key_id="LTAI4FosZAR9Ayr3jdquhhHM"
-aliyun_oss_access_key_secret="9nHPjDiZ2Yb1z0tUeSRhYiIE5OBYC8"
-aliyun_oss_upload_path="oss://vedata/mysql-backup/"
+aliyun_oss_access_key_id=""
+aliyun_oss_access_key_secret=""
+aliyun_oss_upload_path=""
 
 
 #qiniuyun
