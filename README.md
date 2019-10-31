@@ -11,7 +11,7 @@
 +   [-d Databackup fileName prefix]
 
 # example
-- install 
+- Install xtrabackup. 
 
     ` bash install_xtrabackup.sh `
 - For example if you want to backup to local disk, you can run:

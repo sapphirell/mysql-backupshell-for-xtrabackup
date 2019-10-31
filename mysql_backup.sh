@@ -1,7 +1,8 @@
 #!/bin/bash
 today=`date "+%Y-%m-%d-%H:%M:%S"`
 #include config file
-source ./backup.config.sh
+project_path=$(cd `dirname $0`; pwd)
+source ${project_path}/backup.config.sh
 
 print() {
     echo -e "\033[33mINFO:${1}\033[0m"
@@ -45,7 +46,7 @@ file_name="${backup_data_prefix}-${today}.tar"
 #init
 init ${base_dir}
 
-while getopts 'h:a:s:p:u:r:b:r:g:d:m:' OPT; do
+while getopts 'u:r:a:s:p:m:g:d:b:h:' OPT; do
     case $OPT in
         u) user="$OPTARG";;
         r) retain="$OPTARG";;
